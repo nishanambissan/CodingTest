@@ -39,8 +39,8 @@ namespace ATMMachine
 
         private static void ProcessInput(AtmMoneyStore moneyStore, double amountToWithdraw)
         {
-            //WithdrawalByLeastNumberOfItems withdrawal = new WithdrawalByLeastNumberOfItems(moneyStore);
-            //Cash cash = withdrawal.Withdraw(amountToWithdraw);
+            WithdrawalByLeastNumberOfItems withdrawal = new WithdrawalByLeastNumberOfItems(moneyStore);
+            Cash cash = withdrawal.Withdraw(amountToWithdraw);
             Console.WriteLine($"Balance left after withdrawal is : {moneyStore.GetBalance()}");
         }
     }
