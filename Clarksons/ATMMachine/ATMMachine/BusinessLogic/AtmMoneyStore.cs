@@ -5,7 +5,7 @@ namespace ATMMachine.BusinessLogic
     {
         public AtmMoneyStore()
         {
-            Console.WriteLine("Initialising money store for the first time...");
+            
 
             Setup();
         }

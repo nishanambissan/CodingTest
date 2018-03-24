@@ -3,6 +3,6 @@ namespace ATMMachine.BusinessLogic
 {
     public interface IWithdrawal
     {
-        Cash Withdraw();
+        Cash Withdraw(double amountToWithdraw);
     }
 }
