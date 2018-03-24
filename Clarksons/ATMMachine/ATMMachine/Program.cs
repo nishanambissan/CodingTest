@@ -1,4 +1,5 @@
 ﻿using System;
+using ATMMachine.BusinessLogic;
 
 namespace ATMMachine
 {
@@ -6,6 +7,8 @@ namespace ATMMachine
     {
         static void Main(string[] args)
         {
+            AtmMoneyStore moneyStore = new AtmMoneyStore();
+            Console.WriteLine($"Available balance is : {moneyStore.GetBalance()}");
             while (true)
             {
                 Console.WriteLine("*******************************************************\n");

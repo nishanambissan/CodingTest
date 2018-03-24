@@ -6,6 +6,12 @@ namespace ATMMachine.BusinessLogic
         public AtmMoneyStore()
         {
             Console.WriteLine("Initialising money store for the first time...");
+
+            Setup();
+        }
+
+        public void Setup()
+        {
             AvailableCash = new Cash();
             AvailableCash.CoinOrNotes.Add(new Denomination { Type = DenominationType.OneP, Count = 100 });
             AvailableCash.CoinOrNotes.Add(new Denomination { Type = DenominationType.TwoP, Count = 100 });
@@ -24,8 +30,9 @@ namespace ATMMachine.BusinessLogic
 
         public double GetBalance() 
         {
-            throw new NotImplementedException();
-            //TODO implement adding up the cash available and return that
+            double balance = 0;
+            AvailableCash.CoinOrNotes.ForEach(c => balance += c.Value * c.Count);
+            return balance;
         }
     }
 }

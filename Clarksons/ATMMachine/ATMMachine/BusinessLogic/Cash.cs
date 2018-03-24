@@ -5,6 +5,11 @@ namespace ATMMachine.BusinessLogic
 {
     public class Cash
     {
-        public List<Denomination> CoinOrNotes { get; set; }
+        public Cash()
+        {
+            CoinOrNotes = new List<Denomination>();
+        }
+
+        public List<Denomination> CoinOrNotes { get; set; } 
     }
 }
