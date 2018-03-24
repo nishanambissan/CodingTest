@@ -18,7 +18,7 @@ namespace ATMMachine.BusinessLogic
             var moneyStoreSortedByDenominationDescending = _moneyStore.AvailableCash.CoinOrNotes.OrderByDescending(c => c.Value);
             foreach(var coinOrNote in moneyStoreSortedByDenominationDescending)
             {
-                int NumberOfCoinsOrNotes = (int)amountToWithdraw / (int)coinOrNote.Value;
+                int NumberOfCoinsOrNotes = (int)(amountToWithdraw / coinOrNote.Value);
                 Console.WriteLine($"{NumberOfCoinsOrNotes} of value {coinOrNote.Type.ToString()}");
                 Denomination item = new Denomination { Type = coinOrNote.Type, Count = NumberOfCoinsOrNotes };
                 cash.CoinOrNotes.Add(item);
