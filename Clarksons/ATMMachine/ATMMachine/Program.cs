@@ -1,6 +1,7 @@
 ﻿using System;
 using ATMMachine.BusinessLogic;
 using ATMMachine.BusinessLogic.CustomExceptions;
+using System.Collections.Generic;
 
 namespace ATMMachine
 {
@@ -33,7 +34,8 @@ namespace ATMMachine
         private static AtmMoneyStore SetupMachineFirstTime()
         {
             Console.WriteLine("Initialising money store for the first time...");
-            AtmMoneyStore moneyStore = new AtmMoneyStore();
+            DenominationPreferenceRules rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound }); 
+            AtmMoneyStore moneyStore = new AtmMoneyStore(rules);
             Console.WriteLine($"Available balance is : {moneyStore.GetBalance()}");
             return moneyStore;
         }

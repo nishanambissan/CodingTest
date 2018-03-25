@@ -4,16 +4,16 @@ using ATMMachine.BusinessLogic.CustomExceptions;
 
 namespace ATMMachine.BusinessLogic
 {
-    public class WithdrawalByLeastNumberOfItems : IWithdrawal
+    public class WithdrawalByPreferedDenominationRules : IWithdrawal
     {
         readonly AtmMoneyStore _moneyStore;
 
-        public WithdrawalByLeastNumberOfItems(AtmMoneyStore moneyStore)
+        public WithdrawalByPreferedDenominationRules(AtmMoneyStore moneyStore)
         {
             this._moneyStore = moneyStore;
         }
 
-        public Cash Withdraw(double amountToWithdraw)
+        public Cash Withdraw(double amountToWithdraw, DenominationPreferenceRules rules)
         {
             Cash cash = new Cash();
             var moneyStoreSortedByDenominationDescending = _moneyStore.AvailableCash.CoinOrNotes.OrderByDescending(c => c.Value);
@@ -35,7 +35,7 @@ namespace ATMMachine.BusinessLogic
             return cash;
         }
 
-        public Cash Withdraw(double amountToWithdraw, DenominationPreferenceRules rules)
+        public Cash Withdraw(double amountToWithdraw)
         {
             throw new NotSupportedException();
         }

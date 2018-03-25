@@ -16,7 +16,7 @@ namespace ATMMachineTests
         public void ShouldWithdrawReturningLeastNumberOfNotesOrCoins(double amountToWithdraw, double balance, params object[] denominations)
         {
             AtmMoneyStore moneyStore = new AtmMoneyStore();
-            WithdrawalByLeastNumberOfItems withdrawal = new WithdrawalByLeastNumberOfItems(moneyStore);
+            IWithdrawal withdrawal = new WithdrawalByLeastNumberOfItems(moneyStore);
 
             Cash cash = withdrawal.Withdraw(amountToWithdraw);
             Assert.Equal(denominations.Length / 2, cash.CoinOrNotes.Count);
