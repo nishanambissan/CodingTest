@@ -28,7 +28,16 @@ namespace ATMMachine.BusinessLogic
                     amountToWithdraw = Math.Round(amountToWithdraw - item.Value * item.Count, 2);
                 }
             }
+            UpdateCashBalanceInAtmMachine(cash);
             return cash;
+        }
+
+        private void UpdateCashBalanceInAtmMachine(Cash cash)
+        {
+            foreach(var coinOrNote in cash.CoinOrNotes)
+            {
+                _moneyStore.AvailableCash.CoinOrNotes.First<Denomination>(c => c.Type == coinOrNote.Type).Count -= coinOrNote.Count;
+            }
         }
     }
 }
