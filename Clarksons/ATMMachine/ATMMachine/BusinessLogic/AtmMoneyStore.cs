@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace ATMMachine.BusinessLogic
 {
     public class AtmMoneyStore
@@ -32,7 +33,7 @@ namespace ATMMachine.BusinessLogic
         {
             double balance = 0;
             AvailableCash.CoinOrNotes.ForEach(c => balance += c.Value * c.Count);
-            return balance;
+            return Math.Round(balance,2);
         }
     }
 }

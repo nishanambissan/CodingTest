@@ -1,5 +1,4 @@
-﻿using System;
-namespace ATMMachine.BusinessLogic
+﻿namespace ATMMachine.BusinessLogic
 {
     public interface IWithdrawal
     {
