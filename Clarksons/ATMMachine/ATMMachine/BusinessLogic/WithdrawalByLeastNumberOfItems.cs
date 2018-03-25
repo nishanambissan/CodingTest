@@ -18,13 +18,15 @@ namespace ATMMachine.BusinessLogic
             var moneyStoreSortedByDenominationDescending = _moneyStore.AvailableCash.CoinOrNotes.OrderByDescending(c => c.Value);
             foreach(var coinOrNote in moneyStoreSortedByDenominationDescending)
             {
-                int NumberOfCoinsOrNotes = (int)(amountToWithdraw / coinOrNote.Value);
-                Console.WriteLine($"{NumberOfCoinsOrNotes} of value {coinOrNote.Type.ToString()}");
-                Denomination item = new Denomination { Type = coinOrNote.Type, Count = NumberOfCoinsOrNotes };
-                cash.CoinOrNotes.Add(item);
-                amountToWithdraw = amountToWithdraw - item.Value * item.Count;
                 if (amountToWithdraw.Equals(0))
                     break;
+                int NumberOfCoinsOrNotes = (int)(amountToWithdraw / coinOrNote.Value);
+                if (NumberOfCoinsOrNotes > 0)
+                {
+                    Denomination item = new Denomination { Type = coinOrNote.Type, Count = NumberOfCoinsOrNotes };
+                    cash.CoinOrNotes.Add(item);
+                    amountToWithdraw = Math.Round(amountToWithdraw - item.Value * item.Count, 2);
+                }
             }
             return cash;
         }
