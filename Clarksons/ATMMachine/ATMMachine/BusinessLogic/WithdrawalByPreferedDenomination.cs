@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using ATMMachine.BusinessLogic.CustomExceptions;
-using ATMMachine.BusinessLogic.Shared;
+﻿using System.Linq;
 
 namespace ATMMachine.BusinessLogic
 {

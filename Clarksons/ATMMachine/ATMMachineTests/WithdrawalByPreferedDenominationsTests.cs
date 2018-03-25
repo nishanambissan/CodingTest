@@ -1,5 +1,4 @@
-﻿using System;
-using ATMMachine.BusinessLogic;
+﻿using ATMMachine.BusinessLogic;
 using Xunit;
 using System.Collections.Generic;
 using System.Linq;
