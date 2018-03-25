@@ -64,8 +64,8 @@ namespace ATMMachine
             switch (type)
             {
                 case WithdrawalType.PreferredDenominationRules : 
-                    DenominationPreferenceRules rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound });
-                    withdrawalScheme = new WithdrawalByPreferedDenominationRules(moneyStore, rules);
+                    DenominationPreferenceRules rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TenPound });
+                    withdrawalScheme = new WithdrawalByPreferedDenomination(moneyStore, rules);
                     break;
 
                 case WithdrawalType.LeastNumberOfItems :

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.2.0/build/netcoreapp1.0/xunit.runner.reporters.netstandard15.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.2.0/build/netcoreapp1.0/xunit.runner.utility.netstandard15.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.2.0/build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="ATMMachine" t="IncludeRecursive">
+        <e p="app.config" t="Include" />
+        <e p="ATMMachine.csproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BusinessLogic" t="Include">
+          <e p="AtmMoneyStore.cs" t="Include" />
+          <e p="Cash.cs" t="Include" />
+          <e p="CustomExceptions" t="Include">
+            <e p="OutOfMoneyException.cs" t="Include" />
+          </e>
+          <e p="Denomination.cs" t="Include" />
+          <e p="DenominationPreferenceRules.cs" t="Include" />
+          <e p="DenominationType.cs" t="Include" />
+          <e p="IWithdrawal.cs" t="Include" />
+          <e p="Shared" t="Include">
+            <e p="ExtensionMethods.cs" t="Include" />
+          </e>
+          <e p="WithdrawalByLeastNumberOfItems.cs" t="Include" />
+          <e p="WithdrawalByPreferedDenomination.cs" t="Include" />
+          <e p="WithdrawalScheme.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.0" t="Include">
+              <e p="ATMMachine.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
+      <e p="ATMMachine.sln" t="IncludeFlat" />
+      <e p="ATMMachineTests" t="IncludeRecursive">
+        <e p="ATMMachineTests.csproj" t="IncludeRecursive" />
+        <e p="AtmpMoneyStoreTests.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.0" t="Include">
+              <e p="ATMMachineTests.AssemblyInfo.cs" t="Include" />
+              <e p="ATMMachineTests.Program.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="WithdrawalByLeastNumberOfItemsTests.cs" t="Include" />
+        <e p="WithdrawalByPreferedDenominationsTests.cs" t="Include" />
+        <e p="WithdrawalSchemeTests.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2017.3/resharper-host/local/Transient/ReSharperHost/v11/SolutionCaches/_ATMMachine.1645453065.00" t="ExcludeRecursive" />
+  </component>
+</project>

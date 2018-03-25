@@ -5,10 +5,13 @@ using ATMMachine.BusinessLogic.Shared;
 
 namespace ATMMachine.BusinessLogic
 {
-    public class WithdrawalByLeastNumberOfItems : WithdrawalScheme
+    public class WithdrawalByPreferedDenomination : WithdrawalScheme
     {
-        public WithdrawalByLeastNumberOfItems(AtmMoneyStore moneyStore)
+        readonly DenominationPreferenceRules rules;
+
+        public WithdrawalByPreferedDenomination(AtmMoneyStore moneyStore, DenominationPreferenceRules rules)
         {
+            this.rules = rules;
             _moneyStore = moneyStore;
         }
 
@@ -19,7 +22,12 @@ namespace ATMMachine.BusinessLogic
             Cash cash = new Cash();
             var allAvailableDenominations = _moneyStore.AvailableCash.CoinOrNotes.OrderByDescending(c => c.Value);
 
-            foreach(var denomination in allAvailableDenominations)
+            foreach (var preferedDenomination in rules.PreferedDenominationTypes)
+            {
+                amountToWithdraw = WithdrawInChosenDenomination(amountToWithdraw, cash, preferedDenomination);
+            }
+
+            foreach (var denomination in allAvailableDenominations)
             {
                 amountToWithdraw = WithdrawInChosenDenomination(amountToWithdraw, cash, denomination.Type);
             }

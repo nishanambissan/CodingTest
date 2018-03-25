@@ -16,7 +16,7 @@ namespace ATMMachineTests
         {
             var rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound });
             AtmMoneyStore moneyStore = new AtmMoneyStore();
-            IWithdrawal withdrawal = new WithdrawalByPreferedDenominationRules(moneyStore, rules);
+            IWithdrawal withdrawal = new WithdrawalByPreferedDenomination(moneyStore, rules);
 
             Cash cash = withdrawal.Withdraw(amountToWithdraw);
             Assert.Equal(denominations.Length / 2, cash.CoinOrNotes.Count);
@@ -40,12 +40,13 @@ namespace ATMMachineTests
         {
             var rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TenPound });
             AtmMoneyStore moneyStore = new AtmMoneyStore();
-            IWithdrawal withdrawal = new WithdrawalByPreferedDenominationRules(moneyStore, rules);
+            IWithdrawal withdrawal = new WithdrawalByPreferedDenomination(moneyStore, rules);
 
             Cash cash = withdrawal.Withdraw(amountToWithdraw);
 
             Assert.Equal(DenominationType.TenPound, cash.CoinOrNotes.SingleOrDefault().Type);
-            Assert.Equal(12, cash.CoinOrNotes.FindAll(c => c.Type == DenominationType.TenPound).Count);
+            Assert.Equal(12, cash.CoinOrNotes.FirstOrDefault().Count);
+            Assert.Equal(10, cash.CoinOrNotes.FirstOrDefault().Value);
             Assert.Equal(balance, moneyStore.GetBalance());
         }
     }
