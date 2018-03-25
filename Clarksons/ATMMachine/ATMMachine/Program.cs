@@ -11,6 +11,8 @@ namespace ATMMachine
         {
             AtmMoneyStore moneyStore = SetupMachineFirstTime();
 
+            IWithdrawal withdrawalScheme = SetupWithdrawalScheme(moneyStore, WithdrawalType.LeastNumberOfItems);
+
             while (true)
             {
                 Console.WriteLine("*******************************************************\n");
@@ -19,7 +21,7 @@ namespace ATMMachine
 
                 if (Double.TryParse(input, out double amountToWithdraw))
                 {
-                    ProcessInput(moneyStore, amountToWithdraw);
+                    ProcessInput(moneyStore, amountToWithdraw, withdrawalScheme);
 
                     Console.WriteLine("Press any key to continue X to quit the program");
                     var keyEntered = Console.ReadKey();
@@ -34,30 +36,46 @@ namespace ATMMachine
         private static AtmMoneyStore SetupMachineFirstTime()
         {
             Console.WriteLine("Initialising money store for the first time...");
-            DenominationPreferenceRules rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound }); 
-            AtmMoneyStore moneyStore = new AtmMoneyStore(rules);
+            AtmMoneyStore moneyStore = new AtmMoneyStore();
             Console.WriteLine($"Available balance is : {moneyStore.GetBalance()}");
             return moneyStore;
         }
 
-        private static void ProcessInput(AtmMoneyStore moneyStore, double amountToWithdraw)
+        private static void ProcessInput(AtmMoneyStore moneyStore, double amountToWithdraw, IWithdrawal withdrawalScheme)
         {
-            IWithdrawal withdrawal = new WithdrawalByPreferedDenominationRules(moneyStore);
             try
             {
-                Cash cash = withdrawal.Withdraw(amountToWithdraw);
+                Cash cash = withdrawalScheme.Withdraw(amountToWithdraw);
                 DisplayCashDispensedToUser(cash);
                 Console.WriteLine($"Balance left after withdrawal is : {moneyStore.GetBalance()}");
             }
-            catch(OutOfMoneyException exc)
+            catch (OutOfMoneyException exc)
             {
                 Console.WriteLine(exc.Message);
             }
         }
 
+        private static IWithdrawal SetupWithdrawalScheme(AtmMoneyStore moneyStore, WithdrawalType type)
+        {
+            //TODO : this is poor man's injection. For now, since its a basic application we can live without have a container and DI logic
+            //to inject the scheme. Open to extension though.
+
+            switch (type)
+            {
+                case WithdrawalType.PreferredDenominationRules : 
+                    DenominationPreferenceRules rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound });
+                    return new WithdrawalByPreferedDenominationRules(moneyStore, rules);
+
+                case WithdrawalType.LeastNumberOfItems :
+                    return new WithdrawalByLeastNumberOfItems(moneyStore);
+
+                default: throw new Exception("This schema is not supported yet");
+            }
+        }
+
         private static void DisplayCashDispensedToUser(Cash cash)
         {
-            Console.WriteLine(cash.ToString());
+            Console.WriteLine(cash);
         }
     }
 }

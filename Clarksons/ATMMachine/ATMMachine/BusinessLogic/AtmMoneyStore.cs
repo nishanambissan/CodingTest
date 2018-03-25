@@ -4,15 +4,7 @@ namespace ATMMachine.BusinessLogic
 {
     public class AtmMoneyStore
     {
-        public DenominationPreferenceRules Rules { get; }
-
         public AtmMoneyStore() { Setup(); }
-
-        public AtmMoneyStore(DenominationPreferenceRules rules)
-        {
-            Rules = rules;
-            Setup();
-        }
 
         public void Setup()
         {

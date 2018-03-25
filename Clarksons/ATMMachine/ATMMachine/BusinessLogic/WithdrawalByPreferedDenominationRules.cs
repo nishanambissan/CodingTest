@@ -8,9 +8,11 @@ namespace ATMMachine.BusinessLogic
     public class WithdrawalByPreferedDenominationRules : IWithdrawal
     {
         readonly AtmMoneyStore _moneyStore;
+        readonly DenominationPreferenceRules rules;
 
-        public WithdrawalByPreferedDenominationRules(AtmMoneyStore moneyStore)
+        public WithdrawalByPreferedDenominationRules(AtmMoneyStore moneyStore, DenominationPreferenceRules rules)
         {
+            this.rules = rules;
             this._moneyStore = moneyStore;
         }
 
@@ -27,7 +29,7 @@ namespace ATMMachine.BusinessLogic
                 if (amountToWithdraw.Equals(0))
                     break;
                 
-                foreach (var denomination in _moneyStore.Rules.PreferedDenominationTypes)
+                foreach (var denomination in rules.PreferedDenominationTypes)
                 {
                     int NumberOfCoinsOrNotesInPreferedDenomination = (int)(amountToWithdraw / ExtensionMethods.GetDenominationValuePerUnit(denomination));
                     if (NumberOfCoinsOrNotesInPreferedDenomination > 0)

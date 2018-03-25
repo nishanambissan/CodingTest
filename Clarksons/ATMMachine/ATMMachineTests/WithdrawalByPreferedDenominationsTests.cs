@@ -14,8 +14,8 @@ namespace ATMMachineTests
         public void ShouldWithdrawMostTwentyPoundNotes(double amountToWithdraw, double balance, params object[] denominations)
         {
             var rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound });
-            AtmMoneyStore moneyStore = new AtmMoneyStore(rules);
-            IWithdrawal withdrawal = new WithdrawalByPreferedDenominationRules(moneyStore);
+            AtmMoneyStore moneyStore = new AtmMoneyStore();
+            IWithdrawal withdrawal = new WithdrawalByPreferedDenominationRules(moneyStore, rules);
 
             Cash cash = withdrawal.Withdraw(amountToWithdraw);
             Assert.Equal(denominations.Length / 2, cash.CoinOrNotes.Count);
