@@ -13,7 +13,7 @@ namespace ATMMachine
         static void Main(string[] args)
         {
             SetupMachineFirstTime();
-            SetupWithdrawalScheme(WithdrawalType.PreferredDenominationRules);
+            SetupWithdrawalScheme(WithdrawalType.LeastNumberOfItems);
 
             while (true)
             {
@@ -64,7 +64,7 @@ namespace ATMMachine
             switch (type)
             {
                 case WithdrawalType.PreferredDenominationRules : 
-                    DenominationPreferenceRules rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TenPound });
+                    DenominationPreferenceRules rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound });
                     withdrawalScheme = new WithdrawalByPreferedDenomination(moneyStore, rules);
                     break;
 
