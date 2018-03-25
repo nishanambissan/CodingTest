@@ -35,11 +35,6 @@ namespace ATMMachine.BusinessLogic
             return cash;
         }
 
-        public Cash Withdraw(double amountToWithdraw, DenominationPreferenceRules rules)
-        {
-            throw new NotSupportedException();
-        }
-
         private void UpdateCashBalanceInAtmMachine(Cash cash)
         {
             foreach(var coinOrNote in cash.CoinOrNotes)

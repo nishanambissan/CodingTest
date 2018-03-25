@@ -42,7 +42,7 @@ namespace ATMMachine
 
         private static void ProcessInput(AtmMoneyStore moneyStore, double amountToWithdraw)
         {
-            WithdrawalByLeastNumberOfItems withdrawal = new WithdrawalByLeastNumberOfItems(moneyStore);
+            IWithdrawal withdrawal = new WithdrawalByPreferedDenominationRules(moneyStore);
             try
             {
                 Cash cash = withdrawal.Withdraw(amountToWithdraw);

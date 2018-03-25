@@ -8,7 +8,9 @@ namespace ATMMachineTests
     public class WithdrawalByPreferedDenominationsTests
     {
         [Theory]
-        [InlineData(120.50, 4517.5, DenominationType.TwentyPound, 6, DenominationType.FiftyP, 1)]
+        [InlineData(125.52, 4512.48, DenominationType.TwentyPound, 6, DenominationType.FivePound, 1, 
+                    DenominationType.FiftyP, 1, DenominationType.TwoP, 1)]
+        [InlineData(120.00, 4518, DenominationType.TwentyPound, 6)]
         public void ShouldWithdrawMostTwentyPoundNotes(double amountToWithdraw, double balance, params object[] denominations)
         {
             var rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound });
