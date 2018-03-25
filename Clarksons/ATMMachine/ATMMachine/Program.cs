@@ -7,11 +7,13 @@ namespace ATMMachine
 {
     class Program
     {
+        static AtmMoneyStore moneyStore;
+        static IWithdrawal withdrawalScheme;
+
         static void Main(string[] args)
         {
-            AtmMoneyStore moneyStore = SetupMachineFirstTime();
-
-            IWithdrawal withdrawalScheme = SetupWithdrawalScheme(moneyStore, WithdrawalType.LeastNumberOfItems);
+            SetupMachineFirstTime();
+            SetupWithdrawalScheme(WithdrawalType.PreferredDenominationRules);
 
             while (true)
             {
@@ -21,7 +23,7 @@ namespace ATMMachine
 
                 if (Double.TryParse(input, out double amountToWithdraw))
                 {
-                    ProcessInput(moneyStore, amountToWithdraw, withdrawalScheme);
+                    ProcessInput(amountToWithdraw);
 
                     Console.WriteLine("Press any key to continue X to quit the program");
                     var keyEntered = Console.ReadKey();
@@ -33,15 +35,14 @@ namespace ATMMachine
             }
         }
 
-        private static AtmMoneyStore SetupMachineFirstTime()
+        private static void SetupMachineFirstTime()
         {
             Console.WriteLine("Initialising money store for the first time...");
-            AtmMoneyStore moneyStore = new AtmMoneyStore();
+            moneyStore = new AtmMoneyStore();
             Console.WriteLine($"Available balance is : {moneyStore.GetBalance()}");
-            return moneyStore;
         }
 
-        private static void ProcessInput(AtmMoneyStore moneyStore, double amountToWithdraw, IWithdrawal withdrawalScheme)
+        private static void ProcessInput(double amountToWithdraw)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace ATMMachine
             }
         }
 
-        private static IWithdrawal SetupWithdrawalScheme(AtmMoneyStore moneyStore, WithdrawalType type)
+        private static void SetupWithdrawalScheme(WithdrawalType type)
         {
             //TODO : this is poor man's injection. For now, since its a basic application we can live without have a container and DI logic
             //to inject the scheme. Open to extension though.
@@ -64,10 +65,12 @@ namespace ATMMachine
             {
                 case WithdrawalType.PreferredDenominationRules : 
                     DenominationPreferenceRules rules = new DenominationPreferenceRules(new List<DenominationType> { DenominationType.TwentyPound });
-                    return new WithdrawalByPreferedDenominationRules(moneyStore, rules);
+                    withdrawalScheme = new WithdrawalByPreferedDenominationRules(moneyStore, rules);
+                    break;
 
                 case WithdrawalType.LeastNumberOfItems :
-                    return new WithdrawalByLeastNumberOfItems(moneyStore);
+                    withdrawalScheme = new WithdrawalByLeastNumberOfItems(moneyStore);
+                    break;
 
                 default: throw new Exception("This schema is not supported yet");
             }
