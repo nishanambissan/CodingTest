@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ATMMachine.BusinessLogic.CustomExceptions;
 
 namespace ATMMachine.BusinessLogic
 {
@@ -16,6 +17,8 @@ namespace ATMMachine.BusinessLogic
         {
             Cash cash = new Cash();
             var moneyStoreSortedByDenominationDescending = _moneyStore.AvailableCash.CoinOrNotes.OrderByDescending(c => c.Value);
+            if (amountToWithdraw > _moneyStore.GetBalance())
+                throw new OutOfMoneyException("Sorry, the amount you chose to withdraw exceeds the cash balance in this Atm machine!");
             foreach(var coinOrNote in moneyStoreSortedByDenominationDescending)
             {
                 if (amountToWithdraw.Equals(0))

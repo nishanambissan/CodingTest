@@ -1,7 +1,6 @@
 ﻿using System;
 using ATMMachine.BusinessLogic;
 using Xunit;
-using System.Collections.Generic;
 
 namespace ATMMachineTests
 {
@@ -34,6 +33,15 @@ namespace ATMMachineTests
             }
 
             Assert.Equal(balance, moneyStore.GetBalance());
+        }
+
+        [Fact]
+        public void ShouldNotAllowToWithdrawIfAtmOutOfMoney()
+        {
+            AtmMoneyStore moneyStore = new AtmMoneyStore();
+            WithdrawalByLeastNumberOfItems withdrawal = new WithdrawalByLeastNumberOfItems(moneyStore);
+
+            Assert.Throws<ATMMachine.BusinessLogic.CustomExceptions.OutOfMoneyException>(() => withdrawal.Withdraw(5000));
         }
     }
 }

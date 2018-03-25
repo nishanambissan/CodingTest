@@ -7,5 +7,7 @@
 
   <ItemGroup>
     <Folder Include="BusinessLogic\" />
+    <Folder Include="BusinessLogic\CustomExceptions\" />
+    <Folder Include="BusinessLogic\Shared\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using ATMMachine.BusinessLogic;
+using ATMMachine.BusinessLogic.CustomExceptions;
 
 namespace ATMMachine
 {
@@ -40,8 +41,21 @@ namespace ATMMachine
         private static void ProcessInput(AtmMoneyStore moneyStore, double amountToWithdraw)
         {
             WithdrawalByLeastNumberOfItems withdrawal = new WithdrawalByLeastNumberOfItems(moneyStore);
-            Cash cash = withdrawal.Withdraw(amountToWithdraw);
-            Console.WriteLine($"Balance left after withdrawal is : {moneyStore.GetBalance()}");
+            try
+            {
+                Cash cash = withdrawal.Withdraw(amountToWithdraw);
+                DisplayCashDispensedToUser(cash);
+                Console.WriteLine($"Balance left after withdrawal is : {moneyStore.GetBalance()}");
+            }
+            catch(OutOfMoneyException exc)
+            {
+                Console.WriteLine(exc.Message);
+            }
+        }
+
+        private static void DisplayCashDispensedToUser(Cash cash)
+        {
+            Console.WriteLine(cash.ToString());
         }
     }
 }
